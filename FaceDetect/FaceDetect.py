@@ -19,15 +19,19 @@ class FaceDetect:
         # win.set_image(img)
         dets = self.detector(img, 1)
         shape = None
+
         for k, d in enumerate(dets):
             shape = self.sp(img, d)
             # win.clear_overlay()
             # win.add_overlay(d)
             # win.add_overlay(shape)
+
         face_descriptor = self.facerec.compute_face_descriptor(img, shape)
+
         face_array = []
         for i in face_descriptor:
             face_array.append(i)
+
         return face_array
 
     def compare(self, face1, face2):
