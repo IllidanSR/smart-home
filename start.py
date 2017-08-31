@@ -1,5 +1,7 @@
 import FaceDetect
 import cv2
+import sqlite3
+import json
 
 # capture = cv2.VideoCapture(0)
 # ret, frame = capture.read()
@@ -8,7 +10,9 @@ import cv2
 fd = FaceDetect.FaceDetect()
 ref = fd.get_descriptor('reference.jpg')
 
-test = fd.get_descriptor('test.jpg')
+print(json.dumps(ref))
+
+test = fd.get_descriptor('test1.jpg')
 
 a = fd.compare(ref, test)
 

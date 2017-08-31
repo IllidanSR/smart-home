@@ -24,7 +24,17 @@ class FaceDetect:
             # win.clear_overlay()
             # win.add_overlay(d)
             # win.add_overlay(shape)
-        return self.facerec.compute_face_descriptor(img, shape)
+        face_descriptor = self.facerec.compute_face_descriptor(img, shape)
+        face_array = []
+        for i in face_descriptor:
+            face_array.append(i)
+        return face_array
 
     def compare(self, face1, face2):
         return distance.euclidean(face1, face2)
+
+    def coder(self):
+        pass
+
+    def decoder(self):
+        pass
