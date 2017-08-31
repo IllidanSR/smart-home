@@ -1,12 +1,9 @@
 import FaceDetect
 import cv2
 
-
-
-capture = cv2.VideoCapture(0)
-ret, frame = capture.read()
-cv2.imwrite('out.jpg', frame)
-capture.release()
+# capture = cv2.VideoCapture(0)
+# ret, frame = capture.read()
+# capture.release()
 
 fd = FaceDetect.FaceDetect()
 ref = fd.get_descriptor('reference.jpg')
