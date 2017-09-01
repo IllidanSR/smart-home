@@ -1,20 +1,25 @@
 import FaceDetect
 import cv2
-import sqlite3
 import json
+import Database
 
-# capture = cv2.VideoCapture(0)
-# ret, frame = capture.read()
-# capture.release()
 
+db = Database.Database()
+# db.create_db()
 fd = FaceDetect.FaceDetect()
-ref = fd.get_descriptor('reference.jpg')
 
-print(json.dumps(ref))
+cap = cv2.VideoCapture(1)
+while (cap.isOpened()):
+    ret, frame = cap.read()
+    if ret == True:
+        cv2.imwrite('cam.jpg', frame)
+        test = fd.get_descriptor('cam.jpg', fd.TYPE_FILE)
 
-test = fd.get_descriptor('test1.jpg')
-
-a = fd.compare(ref, test)
-
-if a > 0.3: print("Чужой")
-else:       print("Свой")
+        faces = db.get_descr()
+        for face in faces:
+            curr_face = json.loads(face[0])
+            a = fd.compare(curr_face, test)
+            if a < 0.5: print('Обнаружен', face[1])
+    else:
+        break
+cap.release()

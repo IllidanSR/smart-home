@@ -7,36 +7,16 @@ class FaceLearning:
     def __init__(self):
         self.fd = FaceDetect.FaceDetect()
 
-    def get_move(self):
-        cap = cv2.VideoCapture(0)
-        fourcc = cv2.VideoWriter_fourcc(*'XVID')
-        out = cv2.VideoWriter('output.avi',fourcc, 20.0, (640,480))
-
-        while (cap.isOpened()):
-            ret, frame = cap.read()
-            if ret == True:
-                frame = cv2.flip(frame, 90)
-                out.write(frame)
-                cv2.imshow('frame', frame)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
-            else:
-                break
-
-        cap.release()
-        out.release()
-        cv2.destroyAllWindows()
-
     def learn(self):
-        cap = cv2.VideoCapture('output.avi')
+        cap = cv2.VideoCapture(1)
         while (cap.isOpened()):
             ret, frame = cap.read()
             if ret == True:
-                frame = cv2.flip(frame, 90)
-                # descr = self.fd.get_descriptor(frame)
-                cv2.imshow('frame', frame)
-                # print(descr)
+                cv2.imshow("preview", frame)
+                rval, frame = cap.read()
+                if cv2.waitKey(20) == 27:  # exit on ESC
+                    cv2.imwrite('cam.jpg', frame)
+                    return self.fd.get_descriptor('cam.jpg', self.fd.TYPE_FILE)
             else:
                 break
         cap.release()
-        cv2.destroyAllWindows()
