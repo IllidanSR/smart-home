@@ -8,13 +8,11 @@ db = Database.Database()
 # db.create_db()
 fd = FaceDetect.FaceDetect()
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 while (cap.isOpened()):
     ret, frame = cap.read()
     if ret == True:
-        cv2.imwrite('cam.jpg', frame)
-        test = fd.get_descriptor('cam.jpg', fd.TYPE_FILE)
-
+        test = fd.get_descriptor(frame)
         faces = db.get_descr()
         for face in faces:
             curr_face = json.loads(face[0])

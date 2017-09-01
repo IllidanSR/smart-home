@@ -4,19 +4,12 @@ from scipy.spatial import distance
 
 class FaceDetect:
 
-    TYPE_FILE = 1
-    TYPE_FRAME = 2
-
     def __init__(self):
         self.sp = dlib.shape_predictor('FaceDetect/shape_predictor_68_face_landmarks.dat')
         self.facerec = dlib.face_recognition_model_v1('FaceDetect/dlib_face_recognition_resnet_model_v1.dat')
         self.detector = dlib.get_frontal_face_detector()
 
-    def get_descriptor(self, img, type=1):
-        if type == self.TYPE_FILE:
-            img = io.imread(img)
-        elif type == self.TYPE_FRAME:
-            img = img
+    def get_descriptor(self, img):
         # win = dlib.image_window()
         # win.clear_overlay()
         # win.set_image(img)
