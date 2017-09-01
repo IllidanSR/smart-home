@@ -27,17 +27,15 @@ class FaceLearning:
         out.release()
         cv2.destroyAllWindows()
 
-    def learn(self, video):
-        cap = cv2.VideoCapture(video)
+    def learn(self):
+        cap = cv2.VideoCapture('output.avi')
         while (cap.isOpened()):
             ret, frame = cap.read()
             if ret == True:
                 frame = cv2.flip(frame, 90)
-                self.fd.get_descriptor(frame)
-                descr = cv2.imshow('frame', frame)
-                print(descr)
-                if cv2.waitKey(1) & 0xFF == ord('q'):
-                    break
+                # descr = self.fd.get_descriptor(frame)
+                cv2.imshow('frame', frame)
+                # print(descr)
             else:
                 break
         cap.release()

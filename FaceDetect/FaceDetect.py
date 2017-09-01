@@ -14,17 +14,17 @@ class FaceDetect:
 
     def get_descriptor(self, filename):
         img = io.imread(filename)
-        # win = dlib.image_window()
-        # win.clear_overlay()
-        # win.set_image(img)
+        win = dlib.image_window()
+        win.clear_overlay()
+        win.set_image(img)
         dets = self.detector(img, 1)
         shape = None
 
         for k, d in enumerate(dets):
             shape = self.sp(img, d)
-            # win.clear_overlay()
-            # win.add_overlay(d)
-            # win.add_overlay(shape)
+            win.clear_overlay()
+            win.add_overlay(d)
+            win.add_overlay(shape)
 
         face_descriptor = self.facerec.compute_face_descriptor(img, shape)
 
